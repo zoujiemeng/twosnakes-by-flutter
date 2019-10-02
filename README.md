@@ -1,18 +1,3 @@
-<!--
-*** Thanks for checking out this README Template. If you have a suggestion that would
-*** make this better, please fork the twosnakes-by-flutter and create a pull request or simply open
-*** an issue with the tag "enhancement".
-*** Thanks again! Now go create something AMAZING! :D
-***
-***
-***
-*** To avoid retyping too much info. Do a search and replace for the following:
-*** zoujiemeng, twosnakes-by-flutter, jiemengzou, jiemengzou@gmail.com
--->
-
-
-
-
 
 <!-- PROJECT SHIELDS -->
 <!--
@@ -23,8 +8,8 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 [![Contributors][contributors-shield]][contributors-url]
-<!-- [![Forks][forks-shield]][forks-url] -->
-<!-- [![Stargazers][stars-shield]][stars-url] -->
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 <!-- [![LinkedIn][linkedin-shield]][linkedin-url] -->
@@ -35,7 +20,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/zoujiemeng/twosnakes-by-flutter">
-    <img src="icon/icon2.png" alt="Logo" width="80" height="80">
+    <img src="./assets/icon/icon2.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">twosnakes-by-flutter</h3>
@@ -104,7 +89,7 @@ To get a local copy up and running follow these simple steps.
 
 ### Installation
 
-If you have never used Flutter before, you can install Flutter following [the officical instruction](https://flutter.dev/docs/get-started/install)
+If you have never used Flutter before, you can install Flutter following [this instruction](https://flutter.dev/docs/get-started/install).
 
 ### Set up an editor
 
@@ -117,7 +102,7 @@ After the Installation, you may choose a editor you like. Android Studio and VS 
 git clone https://github.com/zoujiemeng/twosnakes-by-flutter.git
 ```
 
-2. open the directory and run the app following [this instruction](https://flutter.dev/docs/get-started/test-drive)
+2. open the directory and run the app following [this instruction](https://flutter.dev/docs/get-started/test-drive).
 
 3. Make a change to app source and save the changed file then you can see the change take effect almost immediately on your device! This cool feature is provided by Hot Reload of Flutter.
 
