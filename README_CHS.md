@@ -38,7 +38,7 @@
 
 
 <!-- TABLE OF CONTENTS -->
-## Table of Contents
+## 目录
 
 * [项目简介](#项目简介)
   * [单人模式](#单人模式)
@@ -59,7 +59,7 @@
 
 <!-- 项目简介 -->
 ## 项目简介
-这是一个用Flutter写的贪吃蛇游戏，单人模式基本和传统的贪吃蛇一致，双人模式是两个玩家分别用左右两个控制器控制一条蛇去争抢一个食物，先撞墙或者撞上另一条蛇的玩家败北。头碰头算平局，追尾的算后车输。根据实测，双人模式绝对是“撑死胆大的，饿死胆小的”这句话的完美诠释。这个app的另一大特点是随时可以暂停更改各UI组件的颜色，尤其是在游戏中更改的时候，确认更改后能看到像蛇蜕皮一样的谜之场景。
+这是一个用Flutter写的贪吃蛇游戏，单人模式基本和传统的贪吃蛇一致，双人模式是两个玩家分别用左右两个控制器控制一条蛇去争抢一个食物，先撞墙或者撞上另一条蛇的玩家败北。头碰头算平局，追尾的算后车输。根据实测，双人模式绝对是“撑死胆大的，饿死胆小的”这句话的完美诠释。这个app的另一大特点是随时可以暂停更改各UI组件的颜色，尤其是在游戏中更改的时候，确认后能看到像蛇蜕皮一样的谜之场景。
 + 本项目适合新手入门Flutter，代码量约1500，核心源码文件两个(500+1000)。
 + 本项目所有界面元素皆使用代码生成，没有使用任何图片资源。
 
@@ -109,7 +109,8 @@ git clone https://github.com/zoujiemeng/twosnakes-by-flutter.git
 <!-- CONTRIBUTING -->
 ## Contributing
 
-欢迎任何形式的issue和pull request.
+如果有想增加的功能或者bug，欢迎到[issue](https://github.com/zoujiemeng/twosnakes-by-flutter/issues)提出。
+欢迎任何形式的issue和pull request（希望加上简单说明）.
 
 <!-- LICENSE -->
 ## License
@@ -136,9 +137,6 @@ Project Link: [https://github.com/zoujiemeng/twosnakes-by-flutter](https://githu
 * [Package:flutter_colorpicker](https://pub.dev/packages/flutter_colorpicker)
 * [Package:shared_preferences](https://pub.dev/packages/shared_preferences)
 * [Readme template](https://github.com/othneildrew/Best-README-Template)
-
-
-
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
