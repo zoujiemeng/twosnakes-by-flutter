@@ -36,6 +36,7 @@
 </p>
 
 
+For Chinese instruction, please refer to [中文项目简介](./README_CHS.md)
 
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
@@ -157,6 +158,6 @@ Project Link: [https://github.com/zoujiemeng/twosnakes-by-flutter](https://githu
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=flat-square
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
+[license-url]: https://github.com/zoujiemeng/twosnakes-by-flutter/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew
