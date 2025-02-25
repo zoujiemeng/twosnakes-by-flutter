@@ -19,7 +19,7 @@
     <img src="./assets/icon/icon2.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">twosnakes-by-flutter</h3>
+<h3 align="center">twosnakes-by-flutter</h3>
 
   <p align="center">
     A snake game with two player mode powered by Flutter
@@ -42,14 +42,14 @@ For Chinese instruction, please refer to [中文项目简介](./README_CHS.md)
 ## Table of Contents
 
 * [About the Project](#about-the-project)
-  * [One Player Mode](#One-Player-Mode)
-  * [Two Player Mode](#Two-Player-Mode)
-  * [Change Color](#Change-Color)
-  * [Built With](#built-with)
+    * [One Player Mode](#One-Player-Mode)
+    * [Two Player Mode](#Two-Player-Mode)
+    * [Change Color](#Change-Color)
+    * [Built With](#built-with)
 * [Getting Started](#getting-started)
-  * [Installation](#installation)
-  * [Set up an editor](#Set-up-an-editor)
-  * [play with app](#play-with-app)
+    * [Installation](#installation)
+    * [Set up an editor](#Set-up-an-editor)
+    * [play with app](#play-with-app)
 * [Roadmap](#roadmap)
 * [Contributing](#contributing)
 * [License](#license)

@@ -20,14 +20,14 @@ class GameState with ChangeNotifier {
   bool _menuFlag = false;
   bool _vibration = true;
   bool _launchIconFlag = false;
-  List<List<int>> _data;
+  List<List<int>> _data = [];
   Queue _queue1 = Queue();
   Queue _queue2 = Queue();
-  List _direction1;
-  List _direction2;
-  List _gameMapList;
-  Timer _timer;
-  List _food;
+  List<int> _direction1 = [];
+  List<int> _direction2 = [];
+  List _gameMapList = [];
+  late Timer _timer;
+  List<int> _food = [];
   int _step = 0;
   // from default.json
   int _appBkColor = 0xFFB2FF59;
@@ -140,17 +140,21 @@ class GameState with ChangeNotifier {
       prefs.setInt('brickOnePlayer', _brickOnePlayerColor);
       prefs.setInt('scoreBoard', _scoreBoardColor);
       prefs.setInt('food', _foodColor);
-      await showDialog(
-          context: context,
-          builder: (context) {
-            return configDialog(
-                context, 'succeed in saving color plan!😆', {'Confirm✔️': 1});
-          });
+      if (context.mounted) {
+        await showDialog(
+            context: context,
+            builder: (context) {
+              return configDialog(
+                  context, 'succeed in saving color plan!😆', {'Confirm✔️': 1});
+            });
+      }
     }
     if (_initFlag) {
       _initGame();
     } else {
-      _updateState(context);
+      if (context.mounted) {
+        _updateState(context);
+      }
     }
   }
 
@@ -174,17 +178,21 @@ class GameState with ChangeNotifier {
       _scoreBoardColor = int.parse(config['scoreBoard']);
       _foodColor = int.parse(config['food']);
       notifyListeners();
-      await showDialog(
-          context: context,
-          builder: (context) {
-            return configDialog(context, 'succeed in resetting color plan!😆',
-                {'Confirm✔️': 1});
-          });
+      if (context.mounted) {
+        await showDialog(
+            context: context,
+            builder: (context) {
+              return configDialog(context, 'succeed in resetting color plan!😆',
+                  {'Confirm✔️': 1});
+            });
+      }
     }
     if (_initFlag) {
       _initGame();
     } else {
-      _updateState(context);
+      if (context.mounted) {
+        _updateState(context);
+      }
     }
   }
 
@@ -199,9 +207,9 @@ class GameState with ChangeNotifier {
   void _initGame() {
     _step = 0;
 
-    _data = List.generate(_initSize, (_) => List(_initSize));
+    _data = List.generate(_initSize, (_) => List.generate(_initSize, (_) => 0));
     _zeroData(_initSize);
-    _timer = Timer.periodic(Duration(milliseconds: 200), (Timer timer) {
+    _timer = Timer.periodic(const Duration(milliseconds: 200), (Timer timer) {
       _step = (_step + 1) % 5;
       var colorList = [
         0x42000000,
@@ -290,7 +298,7 @@ class GameState with ChangeNotifier {
     _setChar(dotT, [20, baseOffset += 7], state);
   }
 
-  void _setChar(List<List<int>> dot, List offset, int state) {
+  void _setChar(List<List<int>> dot, List<int> offset, int state) {
     for (var i in dot) {
       _data[i[0] + offset[0]][i[1] + offset[1]] = state;
     }
@@ -310,21 +318,21 @@ class GameState with ChangeNotifier {
 
   void _startGame(BuildContext context) {
     _timer.cancel();
-    _data = List.generate(_mapSize, (_) => List(_mapSize));
+    _data = List.generate(_mapSize, (_) => List.generate(_mapSize, (_) => 0));
     _zeroData(_mapSize);
     switch (_playerNum) {
       case 1:
         var h = [_mapSize ~/ 2, _mapSize ~/ 2];
-        _direction1 = _moveMap['RIGHT'];
-        _setStartPos(_queue1, h, _moveMap['LEFT'], _brickOnePlayerColor);
+        _direction1 = _moveMap['RIGHT']!;
+        _setStartPos(_queue1, h, _moveMap['LEFT']!, _brickOnePlayerColor);
         break;
       case 2:
         var h1 = [_mapSize ~/ 4, _mapSize ~/ 2];
-        _direction1 = _moveMap['RIGHT'];
-        _setStartPos(_queue1, h1, _moveMap['LEFT'], _leftPlayerColor);
+        _direction1 = _moveMap['RIGHT']!;
+        _setStartPos(_queue1, h1, _moveMap['LEFT']!, _leftPlayerColor);
         var h2 = [_mapSize * 3 ~/ 4, _mapSize ~/ 2];
-        _direction2 = _moveMap['LEFT'];
-        _setStartPos(_queue2, h2, _moveMap['RIGHT'], _rightPlayerColor);
+        _direction2 = _moveMap['LEFT']!;
+        _setStartPos(_queue2, h2, _moveMap['RIGHT']!, _rightPlayerColor);
         break;
       default:
     }
@@ -400,10 +408,14 @@ class GameState with ChangeNotifier {
         //notifyListeners();
         break;
       case 'Restart':
-        setConfig(context);
+        if (context.mounted) {
+          setConfig(context);
+        }
         break;
       case 'Quick Restart':
-        _startGame(context);
+        if (context.mounted) {
+          _startGame(context);
+        }
         break;
       default:
     }
@@ -450,7 +462,9 @@ class GameState with ChangeNotifier {
               notifyListeners();
               SharedPreferences prefs = await SharedPreferences.getInstance();
               prefs.setInt('highScore', _highScore);
-              _gameOver(context, 'NEW RECORD!🎉\n 🆕high score: $_highScore');
+              if (context.mounted) {
+                _gameOver(context, 'NEW RECORD!🎉\n 🆕high score: $_highScore');
+              }
             } else {
               _gameOver(context, 'GAME OVER 😂');
             }
@@ -546,7 +560,7 @@ class GameState with ChangeNotifier {
       case 1:
         if (_direction1 == _moveMap['LEFT'] ||
             _direction1 == _moveMap['RIGHT']) {
-          _direction1 = _moveMap['UP'];
+          _direction1 = _moveMap['UP']!;
           _buttonFeedback();
         }
         break;
@@ -554,12 +568,12 @@ class GameState with ChangeNotifier {
         if (player == 'left') {
           if (_direction1 == _moveMap['LEFT'] ||
               _direction1 == _moveMap['RIGHT']) {
-            _direction1 = _moveMap['UP'];
+            _direction1 = _moveMap['UP']!;
           }
         } else {
           if (_direction2 == _moveMap['LEFT'] ||
               _direction2 == _moveMap['RIGHT']) {
-            _direction2 = _moveMap['UP'];
+            _direction2 = _moveMap['UP']!;
           }
         }
         break;
@@ -572,7 +586,7 @@ class GameState with ChangeNotifier {
       case 1:
         if (_direction1 == _moveMap['LEFT'] ||
             _direction1 == _moveMap['RIGHT']) {
-          _direction1 = _moveMap['DOWN'];
+          _direction1 = _moveMap['DOWN']!;
           _buttonFeedback();
         }
         break;
@@ -580,12 +594,12 @@ class GameState with ChangeNotifier {
         if (player == 'left') {
           if (_direction1 == _moveMap['LEFT'] ||
               _direction1 == _moveMap['RIGHT']) {
-            _direction1 = _moveMap['DOWN'];
+            _direction1 = _moveMap['DOWN']!;
           }
         } else {
           if (_direction2 == _moveMap['LEFT'] ||
               _direction2 == _moveMap['RIGHT']) {
-            _direction2 = _moveMap['DOWN'];
+            _direction2 = _moveMap['DOWN']!;
           }
         }
         break;
@@ -597,7 +611,7 @@ class GameState with ChangeNotifier {
     switch (_playerNum) {
       case 1:
         if (_direction1 == _moveMap['UP'] || _direction1 == _moveMap['DOWN']) {
-          _direction1 = _moveMap['LEFT'];
+          _direction1 = _moveMap['LEFT']!;
           _buttonFeedback();
         }
         break;
@@ -605,12 +619,12 @@ class GameState with ChangeNotifier {
         if (player == 'left') {
           if (_direction1 == _moveMap['UP'] ||
               _direction1 == _moveMap['DOWN']) {
-            _direction1 = _moveMap['LEFT'];
+            _direction1 = _moveMap['LEFT']!;
           }
         } else {
           if (_direction2 == _moveMap['UP'] ||
               _direction2 == _moveMap['DOWN']) {
-            _direction2 = _moveMap['LEFT'];
+            _direction2 = _moveMap['LEFT']!;
           }
         }
         break;
@@ -622,7 +636,7 @@ class GameState with ChangeNotifier {
     switch (_playerNum) {
       case 1:
         if (_direction1 == _moveMap['UP'] || _direction1 == _moveMap['DOWN']) {
-          _direction1 = _moveMap['RIGHT'];
+          _direction1 = _moveMap['RIGHT']!;
           _buttonFeedback();
         }
         break;
@@ -630,12 +644,12 @@ class GameState with ChangeNotifier {
         if (player == 'left') {
           if (_direction1 == _moveMap['UP'] ||
               _direction1 == _moveMap['DOWN']) {
-            _direction1 = _moveMap['RIGHT'];
+            _direction1 = _moveMap['RIGHT']!;
           }
         } else {
           if (_direction2 == _moveMap['UP'] ||
               _direction2 == _moveMap['DOWN']) {
-            _direction2 = _moveMap['RIGHT'];
+            _direction2 = _moveMap['RIGHT']!;
           }
         }
         break;
@@ -687,18 +701,17 @@ class GameState with ChangeNotifier {
           pickerAreaHeightPercent: 0.7,
           enableAlpha: true,
           displayThumbColor: true,
-          enableLabel: true,
           paletteType: PaletteType.hsv,
         ),
       ),
       actions: <Widget>[
-        FlatButton(
+        TextButton(
           child: const Text('Cancel❌'),
           onPressed: () {
             Navigator.of(context).pop(-1);
           },
         ),
-        FlatButton(
+        TextButton(
           child: const Text('Confirm✔️'),
           onPressed: () {
             Navigator.of(context).pop(tmpColor);
@@ -722,7 +735,9 @@ class GameState with ChangeNotifier {
     if (_initFlag) {
       _initGame();
     } else {
-      _updateState(context);
+      if (context.mounted) {
+        _updateState(context);
+      }
     }
   }
 
@@ -740,7 +755,9 @@ class GameState with ChangeNotifier {
     if (_initFlag) {
       _initGame();
     } else {
-      _updateState(context);
+      if (context.mounted) {
+        _updateState(context);
+      }
     }
   }
 
@@ -758,7 +775,9 @@ class GameState with ChangeNotifier {
     if (_initFlag) {
       _initGame();
     } else {
-      _updateState(context);
+      if (context.mounted) {
+        _updateState(context);
+      }
     }
   }
 
@@ -830,14 +849,14 @@ class GameState with ChangeNotifier {
         builder: (context) {
           return configDialog(context, _sizeTitle, _sizeOptions);
         });
-    print("game map size：${this._mapSize}");
+    debugPrint("game map size：$_mapSize");
     var difficulty = await showDialog(
         context: context,
         barrierDismissible: false,
         builder: (context) {
           return configDialog(context, _speedTitle, _speedOptions);
         });
-    print("game speed：${this._speed}");
+    debugPrint("game speed：$_speed");
     var confirmTitle = '''Play the game under the following options?
 
     Game Mode: $gameMode
@@ -854,11 +873,13 @@ class GameState with ChangeNotifier {
         builder: (context) {
           return configDialog(context, confirmTitle, confirmOptions);
         });
-    if (confirmOptions[startFlag]) {
-      _playerNum = _modeOptions[gameMode];
-      _mapSize = _sizeOptions[mapSize];
-      _speed = _speedOptions[difficulty];
-      _startGame(context);
+    if (confirmOptions[startFlag]!) {
+      _playerNum = _modeOptions[gameMode]!;
+      _mapSize = _sizeOptions[mapSize]!;
+      _speed = _speedOptions[difficulty]!;
+      if (context.mounted) {
+        _startGame(context);
+      }
     } else {
       _initGame();
     }
@@ -904,7 +925,7 @@ class GameState with ChangeNotifier {
 
   void _generateLaunchIcon() {
     var size = _initSize;
-    _data = List.generate(size, (_) => List(size));
+    _data = List.generate(size, (_) => List.generate(size, (_) => 0));
     _zeroData(size);
     var snakePoint = [[0,0],[0,1],[0,2],[0,3],[0,4],[0,8],[0,9],[0,10],[0,11],[0,12],
       [0,16],[1,0],[1,4],[1,8],[1,12],[1,16],[2,0],[2,4],[2,8],[2,12],[2,16],
